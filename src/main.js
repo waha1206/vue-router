@@ -7,6 +7,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
-  store,
+  store, // es6 簡寫，如果同名的話 store:store 可以減寫成 store
   render: h => h(App)
 }).$mount("#app");
