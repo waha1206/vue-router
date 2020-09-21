@@ -1,7 +1,12 @@
 <template>
   <div id="app">
-    <h3>這個是全局變量：{{ $store.state.num }}</h3>
+    <h3>
+      這個是全局變量：{{ $store.state.num }} --- 使用映射屬性 mapState
+      {{ MyName }}
+    </h3>
     <h3>當前的登入用戶是：{{ $store.getters.getLoginUserName }}</h3>
+    <h3>當前的登入用戶是---映射屬性 mapState：{{ User }}</h3>
+    <h3>當前的登入用戶是---映射屬性 mapGetters：{{ getLoginUserName }}</h3>
     <input type="button" value="點我 num +1" @click="addVuexNum" />
     &nbsp;
     <input type="button" value="點我 num -1" @click="minusVuexNum" />
@@ -66,11 +71,26 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from "vuex";
+
 export default {
   data: function() {
     return {
       UserUrl: "/user/waha1206"
     };
+  },
+  computed: {
+    getUserURL: function() {
+      return this.UserUrl.toLowerCase();
+    },
+    // ...mapState(["num", "LoginUserInfo"])  // 第一種寫法
+    // 下面是第二種寫法
+    ...mapState({
+      MyName: "num",
+      User: state =>
+        state.LoginUserInfo ? state.LoginUserInfo.UserName : "未登錄"
+    }),
+    ...mapGetters(["getLoginUserName"])
   },
   methods: {
     addVuexNum() {
