@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <h3>
+      現在的時間 computed： {{ now }} ， 現在的時間 methods： {{ getNow() }}
+    </h3>
+    <h3>
       這個是全局變量：{{ $store.state.num }} --- 使用映射屬性 mapState
       {{ MyName }}
     </h3>
@@ -80,6 +83,9 @@ export default {
     };
   },
   computed: {
+    now: function() {
+      return Date.now();
+    },
     getUserURL: function() {
       return this.UserUrl.toLowerCase();
     },
@@ -93,6 +99,9 @@ export default {
     ...mapGetters(["getLoginUserName"])
   },
   methods: {
+    getNow: function() {
+      return Date.now();
+    },
     addVuexNum() {
       this.$store.commit("addNum", 1);
     },
